@@ -16,7 +16,6 @@ function App() {
       }}>
         <Dashboard />
       </div>
-      {/* <Cardcomponent /> */}
     </div>
   );
 }

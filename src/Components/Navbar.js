@@ -146,7 +146,7 @@ export default function Navbar() {
             <CssBaseline />
             <AppBar position="fixed" open={open}>
                 <Toolbar sx={{ backgroundColor: 'blue', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'  }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <IconButton
                             color="inherit"
                             aria-label="open drawer"
@@ -160,7 +160,7 @@ export default function Navbar() {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6" noWrap component="div">
-                            MoviesDb
+                            MoviesHub
                         </Typography>
                     </Box>
                     <Search>
