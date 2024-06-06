@@ -12,14 +12,18 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import Card from '../Cards/Card'; // Ensure this path is correct
 
 export default function Dashboard() {
+    // Setting all my env variables 🧑‍💻🚀
+    const REACT_APP_MOVIE_URL = process.env.REACT_APP_MOVIE_URL;
+    const REACT_APP_API_KEY = process.env.REACT_APP_API_KEY;
+    const REACT_APP_HOST_NAME = process.env.REACT_APP_HOST_NAME;
     const [movies, setMovies] = useState([]);
 
     const options = {
         method: 'GET',
-        url: 'https://movies-api14.p.rapidapi.com/movies',
+        url: `${REACT_APP_MOVIE_URL}/movies`,
         headers: {
-            'x-rapidapi-key': '720245f4bfmsha05ea578a776e3dp123fd5jsn247d215c36ba',
-            'x-rapidapi-host': 'movies-api14.p.rapidapi.com'
+            'x-rapidapi-key': `${REACT_APP_API_KEY}`,
+            'x-rapidapi-host': `${REACT_APP_HOST_NAME}`
         }
     };
 

@@ -128,6 +128,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function Navbar() {
+    // Setting all my env variables 🧑‍💻🚀
+    const REACT_APP_MOVIE_URL = process.env.REACT_APP_MOVIE_URL;
+    const REACT_APP_API_KEY = process.env.REACT_APP_API_KEY;
+    const REACT_APP_HOST_NAME = process.env.REACT_APP_HOST_NAME;
 
     const navigate = useNavigate();
     const theme = useTheme();
@@ -145,13 +149,13 @@ export default function Navbar() {
     const handleSearch = async () => {
         const options = {
             method: 'GET',
-            url: 'https://movies-api14.p.rapidapi.com/search',
+            url: `${REACT_APP_MOVIE_URL}/search`,
             params: {
                 query: `${searchVal}`
             },
             headers: {
-                'x-rapidapi-key': '720245f4bfmsha05ea578a776e3dp123fd5jsn247d215c36ba',
-                'x-rapidapi-host': 'movies-api14.p.rapidapi.com'
+                'x-rapidapi-key': `${REACT_APP_API_KEY}`,
+                'x-rapidapi-host': `${REACT_APP_HOST_NAME}`
             }
         };
         try {
@@ -166,6 +170,7 @@ export default function Navbar() {
     React.useEffect(() => {
         handleSearch()
     }, [searchVal])
+
 
     return (
         <div>

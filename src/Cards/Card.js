@@ -6,7 +6,7 @@ const Card = ({ movie }) => {
             <div className="card-container">
                 <div className="card">
                     <div className="img-content">
-                        <img src={movie.poster_path} width={400} height={370} />
+                        <img src={movie.poster_path} width={400} height={370} alt='poster' />
                     </div>
                     <div className="content">
                         <div style={{
