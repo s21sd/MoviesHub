@@ -47,6 +47,11 @@ export default function Dashboard() {
                 spaceBetween={30}
                 pagination={{
                     clickable: true,
+
+                }}
+                autoplay={{
+                    delay: 2000,
+                    disableOnInteraction: false,
                 }}
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
@@ -69,8 +74,11 @@ export default function Dashboard() {
                 </SwiperSlide>
             </Swiper>
 
+
+            {/* // Mapping all the response that is coming from the api 🚀🚀  */}
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: '20px', marginRight: '60px', gap: 20 }}>
                 {movies?.map((movie, index) => (
+                    // Using card to show all the movies ✅
                     <Card key={index} movie={movie} />
                 ))}
             </div>

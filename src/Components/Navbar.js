@@ -141,6 +141,7 @@ export default function Navbar() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    // Handling API Search for on the button click 🚀
     const handleSearch = async () => {
         const options = {
             method: 'GET',
@@ -161,13 +162,13 @@ export default function Navbar() {
             console.error(error);
         }
     }
+    // Handling API Search for on the Change in the input box 🚀😊
     React.useEffect(() => {
         handleSearch()
     }, [searchVal])
 
     return (
         <div>
-
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
                 <AppBar position="fixed" open={open}>
@@ -253,13 +254,13 @@ export default function Navbar() {
                 </Box>
 
             </Box>
-
+            {/* // Condition Rendering at the time of api call  🚀😊 */}
             {
 
                 searchVal.length > 0 ?
                     <div>
                         {
-                            apiRes.length > 0 ? <></> : <div style={{
+                            apiRes.length > 0 ? <></> : <div style={{   /* // Again Condition Rendering while the movies are loading just showing a loading text and a Icon  🚀😊 */
                                 display: 'flex', alignItems: 'center',
                                 marginLeft: 100, justifyContent: 'center', gap: 10,
                             }} >
@@ -284,6 +285,7 @@ export default function Navbar() {
 
                     }}>
 
+                        {/* // Dashboard Page */}
                         <Dashboard />
 
                     </div>

@@ -7,6 +7,7 @@ import Profile from './Components/pages/Profile';
 
 function App() {
   return (
+    // Defining my routes
     <div>
       <Routes>
         <Route path='/' element={<Navbar />}></Route>
