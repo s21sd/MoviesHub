@@ -1,21 +1,20 @@
 import './App.css';
 import Navbar from './Components/Navbar';
-import Cardcomponent from './Cards/Card';
-import Dashboard from './Components/Dashboard';
+import { Route, Routes } from 'react-router-dom';
+import About from './Components/pages/About';
+import Contactus from './Components/pages/Contactus';
+import Profile from './Components/pages/Profile';
 
 function App() {
   return (
     <div>
-      <Navbar />
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginLeft: 130,
+      <Routes>
+        <Route path='/' element={<Navbar />}></Route>
+        <Route path='/about' element={<About />}></Route>
+        <Route path='/contact' element={<Contactus />}></Route>
+        <Route path='/profile' element={<Profile />}></Route>
 
-      }}>
-        <Dashboard />
-      </div>
+      </Routes>
     </div>
   );
 }

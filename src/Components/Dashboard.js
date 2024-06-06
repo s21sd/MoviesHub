@@ -27,7 +27,6 @@ export default function Dashboard() {
         try {
             const response = await axios.request(options);
             console.log('API Response:', response.data); // Log the API response
-            // Assuming the response data structure, adjust it based on actual response
             const moviesArray = Array.isArray(response.data) ? response.data : response.data.movies || [];
             setMovies(moviesArray);
         } catch (error) {
@@ -69,7 +68,8 @@ export default function Dashboard() {
                     <img style={{ width: '95%' }} src='https://t3.ftcdn.net/jpg/04/61/55/22/360_F_461552267_rL1L1a60Mrl8he5AaM0NMssL3t5BOfdf.webp' height={500} alt='banner' />
                 </SwiperSlide>
             </Swiper>
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: '20px', gap: 20 }}>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: '20px', marginRight: '60px', gap: 20 }}>
                 {movies?.map((movie, index) => (
                     <Card key={index} movie={movie} />
                 ))}

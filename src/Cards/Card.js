@@ -1,7 +1,6 @@
 import React from 'react'
 import './card.css'
 const Card = ({ movie }) => {
-    console.log(movie)
     return (
         <div>
             <div className="card-container">
@@ -20,7 +19,7 @@ const Card = ({ movie }) => {
                                 justifyContent: 'center',
                                 alignItems: 'center'
                             }}>
-                                <p className="heading">{movie.original_title} </p>
+                                <p className="heading">{movie.original_title?.length > 20 ? movie.original_title.slice(0, 10) + '...' : movie.original_title} </p>
                                 <span style={{
                                     fontSize: 20,
                                     color: 'red'
@@ -29,7 +28,7 @@ const Card = ({ movie }) => {
                             <p className="release-date">{movie.release_date}</p>
                         </div>
                         <p>
-                            {movie.overview}
+                            {movie.overview?.length > 100 ? movie.overview.slice(0, 150) + ' ...' : movie.overview}
                         </p>
                         <p style={{
                             textAlign: 'end',

@@ -22,6 +22,11 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+import axios from 'axios';
+import Dashboard from './Dashboard';
+import Card from '../Cards/Card';
+import { useNavigate } from 'react-router-dom';
+import LoopIcon from '@mui/icons-material/Loop';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -102,16 +107,6 @@ const Search = styled('div')(({ theme }) => ({
     },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     width: '100%',
@@ -129,10 +124,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+
+
+
 export default function Navbar() {
+
+    const navigate = useNavigate();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-
+    const [apiRes, setApiRes] = React.useState([])
+    const [searchVal, setSearchVal] = React.useState('')
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -140,79 +141,156 @@ export default function Navbar() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    const handleSearch = async () => {
+        const options = {
+            method: 'GET',
+            url: 'https://movies-api14.p.rapidapi.com/search',
+            params: {
+                query: `${searchVal}`
+            },
+            headers: {
+                'x-rapidapi-key': '720245f4bfmsha05ea578a776e3dp123fd5jsn247d215c36ba',
+                'x-rapidapi-host': 'movies-api14.p.rapidapi.com'
+            }
+        };
+        try {
+            const response = await axios.request(options);
+            console.log(response.data.contents);
+            setApiRes(response.data.contents)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    React.useEffect(() => {
+        handleSearch()
+    }, [searchVal])
 
     return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar position="fixed" open={open}>
-                <Toolbar sx={{ backgroundColor: 'blue', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={handleDrawerOpen}
-                            edge="start"
-                            sx={{
-                                marginRight: 3,
-                                ...(open && { display: 'none' }),
-                            }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="h6" noWrap component="div">
-                            MoviesHub
-                        </Typography>
-                    </Box>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
-                </Toolbar>
+        <div>
 
-            </AppBar>
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader sx={{ backgroundColor: 'blue' }}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon style={{ fill: '#ffffff' }} />}
-                    </IconButton>
-                </DrawerHeader>
-                <Divider />
-                <List>
-                    {['Home', 'About', 'Contact us', 'Profile'].map((text, index) => (
-                        <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                            <ListItemButton
+            <Box sx={{ display: 'flex' }}>
+                <CssBaseline />
+                <AppBar position="fixed" open={open}>
+                    <Toolbar sx={{ backgroundColor: 'blue', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <IconButton
+                                color="inherit"
+                                aria-label="open drawer"
+                                onClick={handleDrawerOpen}
+                                edge="start"
                                 sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-                                    px: 2.5,
+                                    marginRight: 3,
+                                    ...(open && { display: 'none' }),
                                 }}
                             >
-                                <ListItemIcon
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography style={{
+                                cursor: 'pointer'
+                            }} onClick={() => navigate('/')} variant="h6" noWrap component="div">
+                                MoviesHub
+                            </Typography>
+                        </Box>
+
+                        <Search sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignContent: 'center'
+                        }} >
+                            <StyledInputBase
+                                placeholder="Search…"
+                                inputProps={{ 'aria-label': 'search' }}
+                                value={searchVal}
+                                onChange={(e) => setSearchVal(e.target.value)}
+                            />
+                            <div onClick={handleSearch}>
+                                <SearchIcon style={{ marginTop: 10, cursor: 'pointer' }} fontSize='large' />
+                            </div>
+                        </Search>
+
+                    </Toolbar>
+
+                </AppBar>
+                <Drawer variant="permanent" open={open}>
+                    <DrawerHeader sx={{ backgroundColor: 'blue' }}>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon style={{ fill: '#ffffff' }} />}
+                        </IconButton>
+                    </DrawerHeader>
+                    <Divider />
+                    <List>
+                        {['Home', 'About', 'Contact us', 'Profile'].map((text, index) => (
+                            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+                                <ListItemButton
                                     sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : 'auto',
-                                        justifyContent: 'center',
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        px: 2.5,
                                     }}
                                 >
-                                    {index == 0 && <HomeIcon style={{ fill: '#0072ea' }} />}
-                                    {index == 1 && <InfoIcon style={{ fill: '#0072ea' }} />}
-                                    {index == 2 && <ContactMailIcon style={{ fill: '#0072ea' }} />}
-                                    {index == 3 && <AccountCircleIcon style={{ fill: '#0072ea' }} />}
-                                </ListItemIcon>
-                                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
-            </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-                <DrawerHeader />
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        {index == 0 && <div onClick={() => navigate('/')} > <HomeIcon style={{ fill: '#0072ea' }} /></div>}
+                                        {index == 1 && <div onClick={() => navigate('/about')}>
+                                            <InfoIcon style={{ fill: '#0072ea' }} />
+                                        </div>}
+                                        {index == 2 && <div onClick={() => navigate('/contact')}><ContactMailIcon style={{ fill: '#0072ea' }} /></div>}
+                                        {index == 3 && <div onClick={() => navigate('/profile')}><AccountCircleIcon style={{ fill: '#0072ea' }} /></div>}
+                                    </ListItemIcon>
+                                    <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                </Drawer>
+                <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                    <DrawerHeader />
+                </Box>
+
             </Box>
-        </Box >
+
+            {
+
+                searchVal.length > 0 ?
+                    <div>
+                        {
+                            apiRes.length > 0 ? <></> : <div style={{
+                                display: 'flex', alignItems: 'center',
+                                marginLeft: 100, justifyContent: 'center', gap: 10,
+                            }} >
+                                <h1>Loading...</h1>
+                                <LoopIcon fontSize='large' />
+                            </div>
+                        }
+                        <div style={{
+                            display: 'flex', flexWrap: 'wrap', alignItems: 'center',
+                            marginLeft: 100, justifyContent: 'space-between', marginTop: '20px', marginRight: '60px', gap: 10
+                        }}>
+                            {apiRes?.map((movie, index) => (
+                                <Card key={index} movie={movie} />
+                            ))}
+                        </div>
+                    </div> :
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginLeft: 130,
+
+                    }}>
+
+                        <Dashboard />
+
+                    </div>
+
+            }
+
+        </div>
+
     );
 }

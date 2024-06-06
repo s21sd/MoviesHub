@@ -1,6 +1,7 @@
 .card-container {
     width: 350px;
-    height: 370px;
+    height: fit-content;
+    padding: 12px;
     position: relative;
     border-radius: 10px;
 }
@@ -59,7 +60,7 @@
 }
 
 .card .content .heading {
-    font-size: 25px;
+    font-size: 80%;
     font-weight: 700;
     color: red;
     background-color: white;
