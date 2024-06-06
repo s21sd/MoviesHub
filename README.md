@@ -6,10 +6,6 @@ Welcome to MoviesHub! This app helps users discover the perfect film for any moo
 - [Features](#features)
 - [Installation](#installation)
 - [API Setup](#api-setup)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 
 ## Features
 - **Personalized Recommendations:** Get movie suggestions tailored to your unique tastes.
